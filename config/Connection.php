@@ -8,26 +8,26 @@ class Connection
 {
 
     private static ?Connection $instance = null;
-    private PDO $pdo;
+    private ?PDO $pdo;
 
     private function __construct()
     {
     }
 
-    static public function getInstance(): self
+    static public function getInstance(): static
     {
-        if (is_null(self::$instance)) {
-            self::$instance = new self();
+        if (is_null(static::$instance)) {
+            static::$instance = new static();
         }
-        return self::$instance;
+        return static::$instance;
     }
 
     public function getConnection(): PDO
     {
-        if (is_null($this->pdo)) {
-            $this->pdo = new PDO($_ENV['DSN'], $_ENV['USER'], $_ENV['PASSWORD']);
-            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        }
+        /*if (is_null($this->pdo)) {*/
+        $this->pdo = new PDO($_ENV['DSN'], $_ENV['USER'], $_ENV['PASSWORD']);
+        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        //}
         return $this->pdo;
     }
 

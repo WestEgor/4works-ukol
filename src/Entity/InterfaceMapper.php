@@ -2,17 +2,19 @@
 
 namespace Entity;
 
+use Model\DomainObject;
+
 interface InterfaceMapper
 {
 
     public function findAll(): array|false;
 
-    public function findByKey(int $key): object|false;
+    public function findByKey(int $id): ?DomainObject;
 
-    public function save(object $object): bool;
+    public function save(DomainObject $object): bool;
 
-    public function update(object $object): bool;
+    public function update(DomainObject $object): bool;
 
-    public function delete(int $key): bool;
+    public function delete(int $id): bool;
 
 }
