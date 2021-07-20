@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Model;
-
 
 abstract class DomainObject
 {
@@ -11,5 +9,4 @@ abstract class DomainObject
     {
         return new static();
     }
-
 }

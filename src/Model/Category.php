@@ -11,13 +11,13 @@ class Category extends DomainObject
     /**
      * Category constructor.
      *
-     * @param int|null $id
+     * @param int|null    $id
      * @param string|null $name
      */
     public function __construct(
         ?int $id = null,
-        ?string $name = null)
-    {
+        ?string $name = null
+    ) {
         $this->id = $id;
         $this->name = $name;
     }

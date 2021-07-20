@@ -7,7 +7,7 @@ use Model\DomainObject;
 interface InterfaceMapper
 {
 
-    public function findAll(): array|false;
+    public function findAll(): ?array;
 
     public function findByKey(int $id): ?DomainObject;
 
@@ -15,6 +15,6 @@ interface InterfaceMapper
 
     public function update(DomainObject $object): bool;
 
-    public function delete(int $id): bool;
+    public function delete(DomainObject $object): bool;
 
 }

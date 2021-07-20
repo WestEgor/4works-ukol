@@ -11,34 +11,63 @@ class CategoryMapper extends AbstractMapper
 {
 
     private PDOStatement $selectStatement;
+    private PDOStatement $selectAllStatement;
     private PDOStatement $insertStatement;
     private PDOStatement $updateStatement;
+    private PDOStatement $deleteStatement;
 
     public function __construct()
     {
         parent::__construct();
         $this->selectStatement = $this->pdo->prepare("SELECT id, name FROM categories WHERE id=?");
+        $this->selectAllStatement = $this->pdo->prepare("SELECT id, name FROM categories");
+        $this->insertStatement = $this->pdo->prepare("INSERT INTO categories(name) VALUES (?)");
+        $this->updateStatement = $this->pdo->prepare("UPDATE categories SET name=? WHERE id=?");
+        $this->deleteStatement = $this->pdo->prepare("DELETE FROM categories WHERE id=?");
     }
 
-    public function findAll(): array|false
+
+    public function save(DomainObject $object): bool
     {
-        // TODO: Implement findAll() method.
+        $values = [$object->getName()];
+        if (!$values) {
+            return false;
+        }
+
+        $id = $this->pdo->lastInsertId();
+
+        if (!$id) {
+            return false;
+        }
+        $object->setId((int)$id);
+        return true;
     }
 
-
-    public function save(object $object): bool
+    public function update(DomainObject $object): bool
     {
-        // TODO: Implement save() method.
+        $values = [
+            $object->getName(),
+            $object->getId()
+        ];
+
+        if (!$values) {
+            return false;
+        }
+
+        $this->updateStatement->execute($values);
+        return true;
     }
 
-    public function update(object $object): bool
+    public function delete(DomainObject $object): bool
     {
-        // TODO: Implement update() method.
-    }
-
-    public function delete(int $id): bool
-    {
-        // TODO: Implement delete() method.
+        $id = [
+            $object->getId()
+        ];
+        if (!$id) {
+            return false;
+        }
+        $this->deleteStatement->execute($id);
+        return true;
     }
 
     protected function selectStatement(): PDOStatement
@@ -50,7 +79,24 @@ class CategoryMapper extends AbstractMapper
     {
         return new Category(
             (int)$raw['id'],
-            (string)$raw['name']
+            $raw['name']
         );
+    }
+
+    protected function createArray(array $raw): array
+    {
+        $categories = [];
+        foreach ($raw as $singleRaw) {
+            $categories[] = new Category(
+                (int)$singleRaw['id'],
+                $singleRaw['name']
+            );
+        }
+        return $categories;
+    }
+
+    protected function selectAllStatement(): PDOStatement
+    {
+        return $this->selectAllStatement;
     }
 }

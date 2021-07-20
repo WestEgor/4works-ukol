@@ -18,7 +18,11 @@ abstract class AbstractMapper implements InterfaceMapper
 
     abstract protected function selectStatement(): PDOStatement;
 
+    abstract protected function selectAllStatement(): PDOStatement;
+
     abstract protected function createObject(array $raw): DomainObject;
+
+    abstract protected function createArray(array $raw): array;
 
     public function findByKey(int $id): ?DomainObject
     {
@@ -32,6 +36,15 @@ abstract class AbstractMapper implements InterfaceMapper
         return $this->createObject($raw);
     }
 
+    public function findAll(): ?array
+    {
+        $this->selectAllStatement()->execute();
+        $raw = $this->selectAllStatement()->fetchAll();
+        if (!$raw) {
+            return null;
+        }
+        return $this->createArray($raw);
+    }
 
     public function __destruct()
     {
