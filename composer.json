@@ -1,0 +1,22 @@
+{
+  "name": "yehor/4works-ukol",
+  "description": "autoloader",
+  "type": "project",
+  "license": "MIT",
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=8.0",
+    "ext-pdo": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Model\\": "src/Model",
+      "Entity\\": "src/Entity",
+      "Configure\\": "config/"
+    }
+  },
+  "require-dev": {
+    "phpstan/phpstan": "^0.12.91",
+    "squizlabs/php_codesniffer": "3.*"
+  }
+}
