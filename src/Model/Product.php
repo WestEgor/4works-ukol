@@ -2,44 +2,45 @@
 
 namespace Model;
 
-class Product
+class Product extends DomainObject
 {
-    private int $id;
+    private ?int $id;
 
-    private string $name;
+    private ?string $productName;
 
-    private int $categoryId;
+    private ?int $categoryId;
 
-    private string $description;
+    private ?float $price;
 
-    private float $price;
+    private ?float $quantity;
 
-    private float $quantity;
+    private ?string $description;
 
     /**
      * Product constructor.
      *
-     * @param int    $id
-     * @param string $name
-     * @param int    $categoryId
-     * @param string $description
-     * @param float  $price
-     * @param float  $quantity
+     * @param int|null $id
+     * @param string|null $productName
+     * @param int|null $categoryId
+     * @param float|null $price
+     * @param float|null $quantity
+     * @param string|null $description
      */
     public function __construct(
-        int $id,
-        string $name,
-        int $categoryId,
-        string $description,
-        float $price,
-        float $quantity
-    ) {
+        ?int $id = null,
+        ?string $productName = null,
+        ?int $categoryId = null,
+        ?float $price = null,
+        ?float $quantity = null,
+        ?string $description = null
+    )
+    {
         $this->id = $id;
-        $this->name = $name;
+        $this->productName = $productName;
         $this->categoryId = $categoryId;
-        $this->description = $description;
         $this->price = $price;
         $this->quantity = $quantity;
+        $this->description = $description;
     }
 
     /**
@@ -61,17 +62,17 @@ class Product
     /**
      * @return string
      */
-    public function getName(): string
+    public function getProductName(): string
     {
-        return $this->name;
+        return $this->productName;
     }
 
     /**
-     * @param string $name
+     * @param string $productName
      */
-    public function setName(string $name): void
+    public function setProductName(string $productName): void
     {
-        $this->name = $name;
+        $this->productName = $productName;
     }
 
     /**
@@ -88,22 +89,6 @@ class Product
     public function setCategoryId(int $categoryId): void
     {
         $this->categoryId = $categoryId;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription(): string
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     */
-    public function setDescription(string $description): void
-    {
-        $this->description = $description;
     }
 
     /**
@@ -136,5 +121,21 @@ class Product
     public function setQuantity(float $quantity): void
     {
         $this->quantity = $quantity;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
     }
 }

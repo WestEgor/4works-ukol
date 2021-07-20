@@ -6,7 +6,7 @@ class Category extends DomainObject
 {
     private ?int $id;
 
-    private ?string $name;
+    private ?string $categoryName;
 
     /**
      * Category constructor.
@@ -19,7 +19,7 @@ class Category extends DomainObject
         ?string $name = null
     ) {
         $this->id = $id;
-        $this->name = $name;
+        $this->categoryName = $name;
     }
 
     /**
@@ -41,16 +41,16 @@ class Category extends DomainObject
     /**
      * @return string
      */
-    public function getName(): string
+    public function getCategoryName(): string
     {
-        return $this->name;
+        return $this->categoryName;
     }
 
     /**
-     * @param string $name
+     * @param string $categoryName
      */
-    public function setName(string $name): void
+    public function setCategoryName(string $categoryName): void
     {
-        $this->name = $name;
+        $this->categoryName = $categoryName;
     }
 }

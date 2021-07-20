@@ -7,7 +7,7 @@ use Model\Category;
 use Model\DomainObject;
 use PDOStatement;
 
-class CategoryMapper extends AbstractMapper
+class CategoriesMapper extends AbstractMapper
 {
 
     private PDOStatement $selectStatement;
@@ -29,11 +29,11 @@ class CategoryMapper extends AbstractMapper
 
     public function save(DomainObject $object): bool
     {
-        $values = [$object->getName()];
+        $values = [$object->getCategoryName()];
         if (!$values) {
             return false;
         }
-
+        $this->insertStatement->execute($values);
         $id = $this->pdo->lastInsertId();
 
         if (!$id) {
@@ -46,7 +46,7 @@ class CategoryMapper extends AbstractMapper
     public function update(DomainObject $object): bool
     {
         $values = [
-            $object->getName(),
+            $object->getCategoryName(),
             $object->getId()
         ];
 
@@ -87,10 +87,7 @@ class CategoryMapper extends AbstractMapper
     {
         $categories = [];
         foreach ($raw as $singleRaw) {
-            $categories[] = new Category(
-                (int)$singleRaw['id'],
-                $singleRaw['name']
-            );
+            $categories[] = $this->createObject($singleRaw);
         }
         return $categories;
     }
