@@ -8,7 +8,7 @@ class Product extends DomainObject
 
     private ?string $productName;
 
-    private ?int $categoryId;
+    private ?Category $category;
 
     private ?float $price;
 
@@ -21,7 +21,7 @@ class Product extends DomainObject
      *
      * @param int|null $id
      * @param string|null $productName
-     * @param int|null $categoryId
+     * @param Category|null $category
      * @param float|null $price
      * @param float|null $quantity
      * @param string|null $description
@@ -29,7 +29,7 @@ class Product extends DomainObject
     public function __construct(
         ?int $id = null,
         ?string $productName = null,
-        ?int $categoryId = null,
+        ?Category $category = null,
         ?float $price = null,
         ?float $quantity = null,
         ?string $description = null
@@ -37,7 +37,7 @@ class Product extends DomainObject
     {
         $this->id = $id;
         $this->productName = $productName;
-        $this->categoryId = $categoryId;
+        $this->category = $category;
         $this->price = $price;
         $this->quantity = $quantity;
         $this->description = $description;
@@ -76,19 +76,19 @@ class Product extends DomainObject
     }
 
     /**
-     * @return int
+     * @return Category
      */
-    public function getCategoryId(): int
+    public function getCategory(): Category
     {
-        return $this->categoryId;
+        return $this->category;
     }
 
     /**
-     * @param int $categoryId
+     * @param Category $category
      */
-    public function setCategoryId(int $categoryId): void
+    public function setCategory(Category $category): void
     {
-        $this->categoryId = $categoryId;
+        $this->category = $category;
     }
 
     /**

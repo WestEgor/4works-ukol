@@ -2,8 +2,10 @@
 
 namespace Entity;
 
+use Model\Category;
 use Model\DomainObject;
 use Model\Product;
+use PDO;
 use PDOStatement;
 
 class ProductsMapper extends AbstractMapper
@@ -48,7 +50,7 @@ class ProductsMapper extends AbstractMapper
     {
         $values = [
             $object->getProductName(),
-            $object->getCategoryId(),
+            $object->getCategory()->getId(),
             $object->getPrice(),
             $object->getQuantity(),
             $object->getDescription()
@@ -73,7 +75,7 @@ class ProductsMapper extends AbstractMapper
     {
         $values = [
             $object->getProductName(),
-            $object->getCategoryId(),
+            $object->getCategory()->getId(),
             $object->getPrice(),
             $object->getQuantity(),
             $object->getDescription(),
@@ -105,7 +107,7 @@ class ProductsMapper extends AbstractMapper
         return new Product(
             (int)$raw['id'],
             $raw['name'],
-            (int)$raw['category_id'],
+            new Category(id: $raw['category_id']),
             (float)$raw['price'],
             (int)$raw['quantity'],
             $raw['description']
@@ -119,5 +121,42 @@ class ProductsMapper extends AbstractMapper
             $products[] = $this->createObject($singleRaw);
         }
         return $products;
+    }
+
+    public function getCategoryByProductName(Product $product): string|null
+    {
+        $nameOfProduct = $product->getProductName();
+        $nameOfCategory = '';
+        $query = "SELECT categories.name FROM products  LEFT JOIN categories ON products.category_id = categories.id
+        WHERE products.name = ?";
+
+        $stmt = $this->pdo->prepare($query);
+        if ($stmt->execute([$nameOfProduct])) {
+            while ($raws = $stmt->fetchAll()) {
+                foreach ($raws as $raw) {
+                    $nameOfCategory = $raw['name'];
+                }
+            }
+            $stmt->closeCursor();
+            return $nameOfCategory;
+        }
+        return null;
+    }
+
+    public function getProductColumnNames(): array|null
+    {
+        $sql = "SELECT `COLUMN_NAME` FROM `information_schema`.`COLUMNS` 
+                WHERE `TABLE_SCHEMA`= 'products-4works' 
+                AND `TABLE_NAME`='products'";
+
+        $stmt = $this->pdo->query($sql);
+        $tableList = [];
+        while ($row = $stmt->fetch(PDO::FETCH_NAMED)) {
+            $tableList[] = $row['COLUMN_NAME'];
+        }
+        if (count($tableList) === 0) {
+            return null;
+        }
+        return $tableList;
     }
 }

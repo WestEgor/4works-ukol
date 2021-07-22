@@ -12,7 +12,8 @@
     "psr-4": {
       "Model\\": "src/Model",
       "Entity\\": "src/Entity",
-      "Configure\\": "config/"
+      "Configure\\": "config/",
+      "Service\\": "src/Service"
     }
   },
   "require-dev": {

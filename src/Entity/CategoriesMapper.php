@@ -5,6 +5,8 @@ namespace Entity;
 
 use Model\Category;
 use Model\DomainObject;
+use Model\Product;
+use PDO;
 use PDOStatement;
 
 class CategoriesMapper extends AbstractMapper
@@ -96,4 +98,34 @@ class CategoriesMapper extends AbstractMapper
     {
         return $this->selectAllStatement;
     }
+
+    public function findCategoryByName(string $categoryName): DomainObject|null
+    {
+        $sql = "SELECT id, name FROM categories WHERE name=?";
+        $this->pdo->prepare($sql)->execute([$categoryName]);
+        $raw = $this->pdo->prepare($sql)->fetch();
+        $this->pdo->prepare($sql)->closeCursor();
+        if (!$raw || !isset($raw['id'])) {
+            return null;
+        }
+        return $this->createObject($raw);
+    }
+
+    public function getColumnNames(): array|null
+    {
+        $sql = "SELECT `COLUMN_NAME` FROM `information_schema`.`COLUMNS` 
+                WHERE `TABLE_SCHEMA`= 'products-4works' 
+                AND `TABLE_NAME`='categories'";
+
+        $stmt = $this->pdo->query($sql);
+        $tableList = [];
+        while ($row = $stmt->fetch(PDO::FETCH_NAMED)) {
+            $tableList[] = $row['COLUMN_NAME'];
+        }
+        if (count($tableList) === 0) {
+            return null;
+        }
+        return $tableList;
+    }
+
 }
