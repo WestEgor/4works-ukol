@@ -80,16 +80,16 @@ if (isset($_POST['create_submit']) || isset($_POST['update_submit'])) {
             quantity: $quantity, description: $description
         );
 
-        if (!is_null($image) && !is_null($tmp)) {
-            $imageUploader = new ImageUploader();
-            $imageUploader->upload($image, $tmp);
-            $product->setImage($image);
-        }
-
         if (isset($_REQUEST['id'])) {
             $productOld = $productMapper->findByKey((int)$_REQUEST['id']);
             $product->setImage($productOld->getImage());
             $product->setId((int)$_REQUEST['id']);
+        }
+
+        if (!is_null($image) && !is_null($tmp)) {
+            $imageUploader = new ImageUploader();
+            $imageUploader->upload($image, $tmp);
+            $product->setImage($image);
         }
 
         if (isset($_POST['update_submit'])) {
