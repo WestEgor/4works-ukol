@@ -12,6 +12,8 @@ class Product extends DomainObject
 
     private ?string $productName;
 
+    private ?string $image;
+
     private ?Category $category;
 
     private ?float $price;
@@ -25,6 +27,7 @@ class Product extends DomainObject
      *
      * @param int|null $id
      * @param string|null $productName
+     * @param string|null $image
      * @param Category|null $category
      * @param float|null $price
      * @param float|null $quantity
@@ -33,6 +36,7 @@ class Product extends DomainObject
     public function __construct(
         ?int $id = null,
         ?string $productName = null,
+        ?string $image = null,
         ?Category $category = null,
         ?float $price = null,
         ?float $quantity = null,
@@ -40,6 +44,7 @@ class Product extends DomainObject
     ) {
         $this->id = $id;
         $this->productName = $productName;
+        $this->image = $image;
         $this->category = $category;
         $this->price = $price;
         $this->quantity = $quantity;
@@ -77,6 +82,23 @@ class Product extends DomainObject
     {
         $this->productName = $productName;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string|null $image
+     */
+    public function setImage(?string $image): void
+    {
+        $this->image = $image;
+    }
+
 
     /**
      * @return Category|null

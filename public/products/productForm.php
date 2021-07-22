@@ -44,7 +44,7 @@ if (isset($_REQUEST['id'])) {
 <body>
 <?php require __DIR__ . '/../navbar.php'; ?>
 
-<form id="product_form" method="post">
+<form id="product_form" method="post" enctype="multipart/form-data">
     <div class="row g-3 align-items-center">
         <div class="col-auto">
             <label for="pname" class="form-label">Name of product:</label>
@@ -86,13 +86,20 @@ if (isset($_REQUEST['id'])) {
                    } ?>">
         </div>
         <div class="col-auto">
-            <label for="pquantity" class="form-label">Description:</label>
-            <input type="text" id="pquantity" name="product_description" class="form-control"
-                   value="<?php if (is_null($product)) {
-                       echo(!empty($_SESSION['product_description']) ? $_SESSION['product_description'] : '');
-                   } else {
-                       echo $product->getDescription();
-                   } ?> ">
+            <label>Description
+                <textarea class="form-control" name="product_description" id="description" cols="50" rows="3">
+                    <?php if (is_null($product)) {
+                        echo(!empty($_SESSION['product_description']) ? $_SESSION['product_description'] : '');
+                    } else {
+                        echo $product->getDescription();
+                    } ?>
+                    </textarea></label>
+        </div>
+        <div class="col-auto">
+            <label>Product image:</label>
+            <input type="file"
+                   name="product_image"
+                   value=""/>
         </div>
     </div>
     <?php if (!isset($_REQUEST['id'])) : ?>

@@ -5,7 +5,6 @@ namespace Entity;
 use Model\Category;
 use Model\DomainObject;
 use Model\Product;
-use PDO;
 use PDOStatement;
 
 /**
@@ -33,13 +32,14 @@ class ProductsMapper extends AbstractMapper
     {
         parent::__construct();
         $this->selectStatement =
-            $this->pdo->prepare("SELECT id, name,category_id,price,quantity,description FROM products WHERE id=?");
+            $this->pdo->prepare("SELECT id, name, image, category_id,price,quantity,description FROM products WHERE id=?");
         $this->selectAllStatement =
-            $this->pdo->prepare("SELECT id, name,category_id,price,quantity,description FROM products");
+            $this->pdo->prepare("SELECT id, name, image, category_id,price,quantity,description FROM products");
         $this->insertStatement =
-            $this->pdo->prepare("INSERT INTO products(name,category_id,price,quantity,description) VALUES (?,?,?,?,?)");
+            $this->pdo->prepare("INSERT INTO products(name, image, category_id,price,quantity,description) 
+                                VALUES (?,?,?,?,?,?)");
         $this->updateStatement =
-            $this->pdo->prepare("UPDATE products SET name=?,category_id=?,price=?,quantity=?,description=? WHERE id=?");
+            $this->pdo->prepare("UPDATE products SET name=?, image=?, category_id=?,price=?,quantity=?,description=? WHERE id=?");
         $this->deleteStatement =
             $this->pdo->prepare("DELETE FROM products WHERE id=?");
     }
@@ -78,6 +78,7 @@ class ProductsMapper extends AbstractMapper
 
         $values = [
             $object->getProductName(),
+            $object->getImage(),
             $object->getCategory()->getId(),
             $object->getPrice(),
             $object->getQuantity(),
@@ -115,6 +116,7 @@ class ProductsMapper extends AbstractMapper
         }
         $values = [
             $object->getProductName(),
+            $object->getImage(),
             $object->getCategory()->getId(),
             $object->getPrice(),
             $object->getQuantity(),
@@ -171,6 +173,7 @@ class ProductsMapper extends AbstractMapper
         return new Product(
             (int)$raw['id'],
             $raw['name'],
+            $raw['image'],
             new Category(id: $raw['category_id']),
             (float)$raw['price'],
             (int)$raw['quantity'],
@@ -227,7 +230,7 @@ class ProductsMapper extends AbstractMapper
      * return ARRAY if columns exist
      * return NULL if no columns in table
      */
-    public function getProductColumnNames(): array|null
+    /*public function getProductColumnNames(): array|null
     {
         $sql = "SELECT `COLUMN_NAME` FROM `information_schema`.`COLUMNS` 
                 WHERE `TABLE_SCHEMA`= 'products-4works' 
@@ -242,5 +245,5 @@ class ProductsMapper extends AbstractMapper
             return null;
         }
         return $tableList;
-    }
+    }*/
 }

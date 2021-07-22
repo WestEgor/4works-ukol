@@ -15,6 +15,7 @@ use Model\Category;
 use Model\Product;
 use Configure\DotEnv;
 use Entity\ProductsMapper;
+use Service\ImageUploader;
 use Service\Validator;
 
 (new DotEnv(__DIR__ . '/../../.env'))->load();
@@ -53,6 +54,9 @@ if (isset($_POST['create_submit']) || isset($_POST['update_submit'])) {
         unset($_POST['product_description']);
     }
 
+    $image = $_FILES['product_image']['name'];
+    $tmp = $_FILES['product_image']['tmp_name'];
+
     $_SESSION['error_msg'] = $errorMessage;
 
     if ($_SESSION['error_msg'] !== '') {
@@ -60,20 +64,39 @@ if (isset($_POST['create_submit']) || isset($_POST['update_submit'])) {
     } else {
         $productMapper = new ProductsMapper();
         $categoryMapper = new CategoriesMapper();
+
         $category = $categoryMapper->findByKey($category);
+
         if (is_null($category)) {
             exit('Error');
         }
         if (!$category instanceof Category) {
             exit('Error');
         }
+
+
         $product = new Product(
             productName: $name, category: $category, price: $price,
             quantity: $quantity, description: $description
         );
-        if (isset($_POST['update_submit'])) {
+
+        if (!is_null($image) && !is_null($tmp)) {
+            $imageUploader = new ImageUploader();
+            $imageUploader->upload($image, $tmp);
+            $product->setImage($image);
+        }
+
+        if (isset($_REQUEST['id'])) {
+            $productOld = $productMapper->findByKey((int)$_REQUEST['id']);
+            $product->setImage($productOld->getImage());
             $product->setId((int)$_REQUEST['id']);
         }
+
+        if (isset($_POST['update_submit'])) {
+            $productMapper->update($product);
+        }
+
+
         if (isset($_POST['create_submit'])) {
             $productMapper->save($product);
         }

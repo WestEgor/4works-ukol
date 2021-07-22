@@ -19,7 +19,6 @@ require __DIR__ . '/../vendor/autoload.php';
 $productsMapper = new ProductsMapper();
 $categoriesMapper = new CategoriesMapper();
 $products = $productsMapper->findAll();
-$columns = $productsMapper->getProductColumnNames();
 ?>
 
 <html lang="en">
@@ -37,68 +36,62 @@ $columns = $productsMapper->getProductColumnNames();
     unset($_GET['product_id']);
 } ?>
 
-
-<table class="table">
-    <thead class="thead-light">
-    <tr>
-        <?php if (!is_null($columns)): ?>
-            <?php foreach ($columns as $column): ?>
-                <?php if ($column === 'category_id') : ?>
-                    <th scope="col"><a href="./categories/showCategories.php"><?php echo $column; ?></a></th>
-                    <?php continue;
-                endif; ?>
-                <th scope="col"><?php echo $column; ?> </th>
-            <?php endforeach; ?>
-            <th scope="col">Update</th>
-            <th scope="col">Delete</th>
-        <?php endif; ?>
-    </tr>
-    </thead>
-    <tbody>
-    <?php if (isset($_GET['submit'])) : ?>
-        <?php $productId = $_GET['product_id']; ?>
-        <?php if (Validator::validateInt($productId)) : ?>
-            <?php if ($product = $productsMapper->findByKey($productId)) : ?>
-                <?php if ($product instanceof Product) : ?>
-                    <tr>
-                        <th scope="row"><?php echo $product->getId() ?></th>
-                        <td><?php echo $product->getProductName() ?></td>
-                        <td><?php echo $productsMapper->getCategoryByProductName($product) ?></td>
-                        <td><?php echo $product->getPrice() ?></td>
-                        <td><?php echo $product->getQuantity() ?></td>
-                        <td><?php echo $product->getDescription() ?></td>
-                        <td><a id="submit_update" class="btn btn-primary"
-                               href="./products/productForm.php?id=<?php echo $product->getId(); ?>">Update</a></td>
-                        <td><a id="submit_delete" class="btn btn-danger" data-id="<?php echo $product->getId(); ?>"
-                               href="">Delete</a></td>
-                    </tr>
-                <?php endif; ?>
-            <? else: $_SESSION['error'] = 'Cannot find product with current ID' ?>
-            <?php endif ?>
-        <? else: $_SESSION['error'] = 'ID cannot be a string' ?>
+<?php if (isset($_GET['submit'])) : ?>
+    <?php $productId = $_GET['product_id']; ?>
+    <?php if (Validator::validateInt($productId)) : ?>
+        <?php if ($product = $productsMapper->findByKey($productId)) : ?>
+            <div class="card">
+            <div class="row">
+            <?php if ($product instanceof Product) : ?>
+                <div class="col-md-2">
+                    <img src="#" class="img-fluid" alt="prod-img" style="height: 225px; width: 225px"/>
+                </div>
+                <div class="col-md-4">
+                    <p class="h4"><?php echo $product->getProductName() ?></p>
+                    <p class="h5">
+                        Kategorie: <?php echo $productsMapper->getCategoryByProductName($product) ?></p>
+                    <p class="h6">Cena: <?php echo $product->getPrice() ?></p>
+                    <p class="h6">Skladem: <?php echo $product->getQuantity() ?></p>
+                    <p class="h6">Popis: <?php echo $product->getDescription() ?></p>
+                    <a id="submit_update" class="btn btn-primary"
+                       href="./products/productForm.php?id=<?php echo $product->getId(); ?>">Update</a>
+                    <a id="submit_delete" class="btn btn-danger" data-id="<?php echo $product->getId(); ?>"
+                       href="">Delete</a>
+                </div>
+                </div>
+                </div>
+            <?php endif; ?>
+        <? else: $_SESSION['error'] = 'Cannot find product with current ID' ?>
         <?php endif ?>
-    <?php else: ?>
-        <?php if (!is_null($products)): ?>
+    <? else: $_SESSION['error'] = 'ID cannot be a string' ?>
+    <?php endif ?>
+<?php else: ?>
+    <div class="card">
+        <div class="row">
             <?php foreach ($products as $product): ?>
                 <?php if ($product instanceof Product) : ?>
-                    <tr>
-                        <th scope="row"><?php echo $product->getId() ?></th>
-                        <td><?php echo $product->getProductName() ?></td>
-                        <td><?php echo $productsMapper->getCategoryByProductName($product) ?></td>
-                        <td><?php echo $product->getPrice() ?></td>
-                        <td><?php echo $product->getQuantity() ?></td>
-                        <td><?php echo $product->getDescription() ?></td>
-                        <td><a id="submit_update" class="btn btn-primary"
-                               href="./products/productForm.php?id=<?php echo $product->getId(); ?>">Update</a></td>
-                        <td><a id="submit_delete" class="btn btn-danger" data-id="<?php echo $product->getId(); ?>"
-                               href="">Delete</a></td>
-                    </tr>
+                    <div class="col-md-2">
+                        <img src="./download/images/<?php echo $product->getImage() ?>" class="img-fluid"
+                             style="height: 225px; width: 225px" alt="product-image"/>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="h4"><?php echo $product->getProductName() ?></p>
+                        <p class="h5">
+                            Kategorie: <?php echo $productsMapper->getCategoryByProductName($product) ?></p>
+                        <p class="h6">Cena: <?php echo $product->getPrice() ?></p>
+                        <p class="h6">Skladem: <?php echo $product->getQuantity() ?></p>
+                        <p class="h6">Popis: <?php echo $product->getDescription() ?></p>
+                        <a id="submit_update" class="btn btn-primary"
+                           href="./products/productForm.php?id=<?php echo $product->getId(); ?>">Update</a>
+                        <a id="submit_delete" class="btn btn-danger" data-id="<?php echo $product->getId(); ?>"
+                           href="">Delete</a>
+                    </div>
                 <?php endif ?>
             <?php endforeach; ?>
-        <?php endif ?>
-    <?php endif; ?>
-    </tbody>
-</table>
+        </div>
+    </div>
+<?php endif; ?>
+
 <?php if (isset($_SESSION['error'])) : ?>
     <div class="alert alert-danger" role="alert">
         <?php echo $_SESSION['error']; ?>
@@ -107,21 +100,13 @@ $columns = $productsMapper->getProductColumnNames();
     <?php session_destroy(); ?>
 <?php endif; ?>
 
-<form method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-    <label>
-        Search by ID:
-        <input type="text" name="product_id"/>
-        <button class="btn btn-primary" type="submit" name="submit">Submit</button>
-    </label>
-</form>
 
-<?php if (isset($_POST['submit']) || isset($_SESSION['error'])) : ?>
+<?php if (isset($_GET['submit']) || isset($_SESSION['error'])) : ?>
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
         <button class="btn btn-primary" type="submit" name="show_all">Show all</button>
     </form>
 <?php endif; ?>
 <?php unset($_SESSION['error']); ?>
-
 <a class="btn btn-primary" id="add_product" href="./products/productForm.php">Add new product</a>
 <script src="js/deleteProduct.js"></script>
 </body>
