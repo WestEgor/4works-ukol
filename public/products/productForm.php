@@ -10,6 +10,7 @@ use Model\Category;
 
 (new DotEnv(__DIR__ . '/../../.env'))->load();
 
+
 $categoryMapper = new CategoriesMapper();
 $productMapper = new \Entity\ProductsMapper();
 $categories = $categoryMapper->findAll();
@@ -25,12 +26,10 @@ if (isset($_REQUEST['id'])) {
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <title>Products</title>
-
+    <title>Products form</title>
 </head>
 <body>
 <?php require __DIR__ . '/../navbar.php'; ?>
-
 
 <form id="product_form" method="post">
     <div class="row g-3 align-items-center">
@@ -90,11 +89,13 @@ if (isset($_REQUEST['id'])) {
         </button>
     <?php endif; ?>
 </form>
-<?php if (isset($_SESSION['error_msg'])) {
-    echo $_SESSION['error_msg'];
-} else {
+<?php if (isset($_SESSION['error_msg'])): ?>
+    <div class="alert alert-danger" role="alert">
+        <?php echo $_SESSION['error_msg']; ?>
+    </div>
+<?php else:
     session_destroy();
-} ?>
+endif; ?>
 <script src="../js/formActionListener.js"></script>
 </body>
 </html>
