@@ -23,9 +23,9 @@ class Category extends DomainObject
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -39,9 +39,9 @@ class Category extends DomainObject
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCategoryName(): string
+    public function getCategoryName(): ?string
     {
         return $this->categoryName;
     }

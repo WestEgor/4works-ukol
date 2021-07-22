@@ -10,12 +10,19 @@ use PDOStatement;
 
 class ProductsMapper extends AbstractMapper
 {
+    /**
+     * Basic statements
+     */
     private PDOStatement $selectStatement;
     private PDOStatement $selectAllStatement;
     private PDOStatement $insertStatement;
     private PDOStatement $updateStatement;
     private PDOStatement $deleteStatement;
 
+    /**
+     * ProductsMapper constructor.
+     * Initialize statements
+     */
     public function __construct()
     {
         parent::__construct();
@@ -31,23 +38,37 @@ class ProductsMapper extends AbstractMapper
             $this->pdo->prepare("DELETE FROM products WHERE id=?");
     }
 
+    /**
+     * Extended AbstractMapper
+     *
+     * @return PDOStatement
+     */
     protected function selectStatement(): PDOStatement
     {
         return $this->selectStatement;
     }
 
+    /**
+     * Extended AbstractMapper
+     * @return PDOStatement
+     */
     protected function selectAllStatement(): PDOStatement
     {
         return $this->selectAllStatement;
     }
 
-
     /**
+     * Implementing InterfaceMapper
+     *
+     * @param DomainObject $object
      * @return bool
-     * @var Product $object
      */
     public function save(DomainObject $object): bool
     {
+        if (!$object instanceof Product) {
+            return false;
+        }
+
         $values = [
             $object->getProductName(),
             $object->getCategory()->getId(),
@@ -55,24 +76,36 @@ class ProductsMapper extends AbstractMapper
             $object->getQuantity(),
             $object->getDescription()
         ];
-        if (!$values) {
+        foreach ($values as $value) {
+            if (is_null($value)) {
+                return false;
+            }
+        }
+
+        if (!$this->insertStatement->execute($values)) {
             return false;
         }
-        $this->insertStatement->execute($values);
+
         $id = $this->pdo->lastInsertId();
         if (!$id) {
             return false;
         }
         $object->setId((int)$id);
+        $this->insertStatement->closeCursor();
         return true;
     }
 
     /**
+     * Implementing InterfaceMapper
+     *
+     * @param DomainObject $object
      * @return bool
-     * @var Product $object
      */
     public function update(DomainObject $object): bool
     {
+        if (!$object instanceof Product) {
+            return false;
+        }
         $values = [
             $object->getProductName(),
             $object->getCategory()->getId(),
@@ -82,26 +115,50 @@ class ProductsMapper extends AbstractMapper
             $object->getId()
         ];
 
-        if (!$values) {
-            return false;
+        foreach ($values as $value) {
+            if (is_null($value)) {
+                return false;
+            }
         }
 
-        $this->updateStatement->execute($values);
+        if (!$this->updateStatement->execute($values)) {
+            return false;
+        }
+        $this->updateStatement->closeCursor();
         return true;
     }
 
+    /**
+     * Implementing InterfaceMapper
+     *
+     * @param DomainObject $object
+     * @return bool
+     */
     public function delete(DomainObject $object): bool
     {
+        if (!$object instanceof Product) {
+            return false;
+        }
+        if (!$object->getId()) {
+            return false;
+        }
         $id = [
             $object->getId()
         ];
-        if (!$id) {
+
+        if (!$this->deleteStatement->execute($id)) {
             return false;
         }
-        $this->deleteStatement->execute($id);
+        $this->deleteStatement->closeCursor();
         return true;
     }
 
+    /**
+     * Extended AbstractMapper
+     *
+     * @param array $raw
+     * @return DomainObject
+     */
     protected function createObject(array $raw): DomainObject
     {
         return new Product(
@@ -114,6 +171,12 @@ class ProductsMapper extends AbstractMapper
         );
     }
 
+    /**
+     * Extended AbstractMapper
+     *
+     * @param array $raw
+     * @return array
+     */
     protected function createArray(array $raw): array
     {
         $products = [];
@@ -123,6 +186,13 @@ class ProductsMapper extends AbstractMapper
         return $products;
     }
 
+    /**
+     * Inner join of categories nad products
+     * Method to receive category name by product
+     *
+     * @param Product $product
+     * @return string|null
+     */
     public function getCategoryByProductName(Product $product): string|null
     {
         $nameOfProduct = $product->getProductName();
@@ -143,6 +213,13 @@ class ProductsMapper extends AbstractMapper
         return null;
     }
 
+    /**
+     * Get column names from table `products`
+     *
+     * @return array|null
+     * return ARRAY if columns exist
+     * return NULL if no columns in table
+     */
     public function getProductColumnNames(): array|null
     {
         $sql = "SELECT `COLUMN_NAME` FROM `information_schema`.`COLUMNS` 

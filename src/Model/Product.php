@@ -44,9 +44,9 @@ class Product extends DomainObject
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -60,9 +60,9 @@ class Product extends DomainObject
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getProductName(): string
+    public function getProductName(): ?string
     {
         return $this->productName;
     }
@@ -76,9 +76,9 @@ class Product extends DomainObject
     }
 
     /**
-     * @return Category
+     * @return Category|null
      */
-    public function getCategory(): Category
+    public function getCategory(): ?Category
     {
         return $this->category;
     }
@@ -92,9 +92,9 @@ class Product extends DomainObject
     }
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getPrice(): float
+    public function getPrice(): ?float
     {
         return $this->price;
     }
@@ -108,9 +108,9 @@ class Product extends DomainObject
     }
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getQuantity(): float
+    public function getQuantity(): ?float
     {
         return $this->quantity;
     }
@@ -124,9 +124,9 @@ class Product extends DomainObject
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }

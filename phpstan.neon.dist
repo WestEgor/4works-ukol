@@ -1,5 +1,7 @@
 parameters:
   level: 8
   paths:
-    - config
+    - src
+  ignoreErrors:
+    -'#Cannot call method#'
   checkMissingIterableValueType: false
