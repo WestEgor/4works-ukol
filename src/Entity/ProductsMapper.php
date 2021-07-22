@@ -8,6 +8,12 @@ use Model\Product;
 use PDO;
 use PDOStatement;
 
+/**
+ * Class ProductsMapper
+ * Class for formation of a real object and performing operations in the database with table `categories`
+ *
+ * @package Entity
+ */
 class ProductsMapper extends AbstractMapper
 {
     /**
@@ -61,7 +67,7 @@ class ProductsMapper extends AbstractMapper
     /**
      * Implementing InterfaceMapper
      *
-     * @param  DomainObject $object
+     * @param DomainObject $object
      * @return bool
      */
     public function save(DomainObject $object): bool
@@ -99,7 +105,7 @@ class ProductsMapper extends AbstractMapper
     /**
      * Implementing InterfaceMapper
      *
-     * @param  DomainObject $object
+     * @param DomainObject $object
      * @return bool
      */
     public function update(DomainObject $object): bool
@@ -132,7 +138,7 @@ class ProductsMapper extends AbstractMapper
     /**
      * Implementing InterfaceMapper
      *
-     * @param  DomainObject $object
+     * @param DomainObject $object
      * @return bool
      */
     public function delete(DomainObject $object): bool
@@ -157,7 +163,7 @@ class ProductsMapper extends AbstractMapper
     /**
      * Extended AbstractMapper
      *
-     * @param  array $raw
+     * @param array $raw
      * @return DomainObject
      */
     protected function createObject(array $raw): DomainObject
@@ -175,7 +181,7 @@ class ProductsMapper extends AbstractMapper
     /**
      * Extended AbstractMapper
      *
-     * @param  array $raw
+     * @param array $raw
      * @return array
      */
     protected function createArray(array $raw): array
@@ -191,7 +197,7 @@ class ProductsMapper extends AbstractMapper
      * Inner join of categories nad products
      * Method to receive category name by product
      *
-     * @param  Product $product
+     * @param Product $product
      * @return string|null
      */
     public function getCategoryByProductName(Product $product): string|null

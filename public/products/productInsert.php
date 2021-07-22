@@ -1,8 +1,17 @@
 <?php
-session_start();
+
+/**
+ * Script to update/create products
+ */
+
+if (!session_id()) {
+    session_start();
+}
+
 require __DIR__ . '/../../vendor/autoload.php';
 
 use Entity\CategoriesMapper;
+use Model\Category;
 use Model\Product;
 use Configure\DotEnv;
 use Entity\ProductsMapper;
@@ -52,12 +61,18 @@ if (isset($_POST['create_submit']) || isset($_POST['update_submit'])) {
         $productMapper = new ProductsMapper();
         $categoryMapper = new CategoriesMapper();
         $category = $categoryMapper->findByKey($category);
-        $product = new Product(productName: $name, category: $category, price: $price,
-            quantity: $quantity, description: $description);
+        if (is_null($category)) {
+            exit('Error');
+        }
+        if (!$category instanceof Category) {
+            exit('Error');
+        }
+        $product = new Product(
+            productName: $name, category: $category, price: $price,
+            quantity: $quantity, description: $description
+        );
         if (isset($_POST['update_submit'])) {
             $product->setId((int)$_REQUEST['id']);
-
-            var_dump($productMapper->update($product));
         }
         if (isset($_POST['create_submit'])) {
             $productMapper->save($product);
@@ -69,4 +84,3 @@ if (isset($_POST['create_submit']) || isset($_POST['update_submit'])) {
         header('Location: ../index.php');
     }
 }
-

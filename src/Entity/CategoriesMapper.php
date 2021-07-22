@@ -8,6 +8,12 @@ use Model\Product;
 use PDO;
 use PDOStatement;
 
+/**
+ * Class CategoriesMapper
+ * Class for formation of a real object and performing operations in the database with table `categories`
+ *
+ * @package Entity
+ */
 class CategoriesMapper extends AbstractMapper
 {
     /**

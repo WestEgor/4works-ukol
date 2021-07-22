@@ -1,3 +1,11 @@
+<?php
+
+/**
+ * Navigation bar
+ */
+
+?>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="/public/index.php">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -17,4 +25,4 @@
         </ul>
     </div>
 </nav>
-<?php require __DIR__ . '/bootstrap.php'; ?>
+<?php require __DIR__ . '/bootstrap.html'; ?>

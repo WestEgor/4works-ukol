@@ -2,6 +2,10 @@
 
 namespace Model;
 
+/**
+ * Class Category
+ * @package Model
+ */
 class Category extends DomainObject
 {
     private ?int $id;

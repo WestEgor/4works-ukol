@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Page to show all categories
+ */
+
 use Configure\DotEnv;
 use Entity\CategoriesMapper;
 use Model\Category;
@@ -15,7 +19,8 @@ $columns = $categoriesMapper->getColumnNames();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css"
+          crossorigin="anonymous">
     <title>Products</title>
 </head>
 <body>
@@ -23,20 +28,24 @@ $columns = $categoriesMapper->getColumnNames();
 <table class="table">
     <thead class="thead-light">
     <tr>
-        <?php foreach ($columns as $column): ?>
-        <th scope="col"><?php echo $column;?></th>
-        <?php endforeach; ?>
+        <?php if (!is_null($columns)): ?>
+            <?php foreach ($columns as $column): ?>
+                <th scope="col"><?php echo $column; ?></th>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </tr>
     </thead>
     <tbody>
-    <?php foreach ($categories as $category): ?>
-        <?php if ($category instanceof Category): ?>
-            <tr>
-                <th scope="row"><?php echo $category->getId() ?></th>
-                <td><?php echo $category->getCategoryName() ?></td>
-            </tr>
-        <?php endif ?>
-    <?php endforeach; ?>
+    <?php if (!is_null($categories)): ?>
+        <?php foreach ($categories as $category): ?>
+            <?php if ($category instanceof Category) : ?>
+                <tr>
+                    <th scope="row"><?php echo $category->getId() ?></th>
+                    <td><?php echo $category->getCategoryName() ?></td>
+                </tr>
+            <?php endif ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
     </tbody>
 </table>
 </body>

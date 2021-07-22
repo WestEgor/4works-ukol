@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Script to show product by specified id
+ */
+
 use Entity\ProductsMapper;
 
 $productMapper = new ProductsMapper();

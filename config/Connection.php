@@ -15,9 +15,9 @@ class Connection
     /**
      * instance of Connection
      *
-     * @var static
+     * @var Connection|null
      */
-    private static $instance = null;
+    private static ?Connection $instance = null;
 
     /**
      * @var PDO|null
