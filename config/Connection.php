@@ -4,17 +4,36 @@ namespace Configure;
 
 use PDO;
 
+/**
+ * Class Connection
+ * Class to interaction with connection via PDO
+ *
+ * @package Configure
+ */
 class Connection
 {
+    /**
+     * instance of Connection
+     *
+     * @var static
+     */
+    private static $instance = null;
 
-    private static ?Connection $instance = null;
-    private ?PDO $pdo;
+    /**
+     * @var PDO|null
+     */
+    private ?PDO $pdo = null;
 
-    private function __construct()
+    final private function __construct()
     {
     }
 
-    static public function getInstance(): static
+    /**
+     * Get single instance of the class Connection
+     *
+     * @return static
+     */
+    public static function getInstance(): static
     {
         if (is_null(static::$instance)) {
             static::$instance = new static();
@@ -22,13 +41,17 @@ class Connection
         return static::$instance;
     }
 
+    /**
+     * Get connection with database via PDO
+     *
+     * @return PDO
+     */
     public function getConnection(): PDO
     {
-        /*if (is_null($this->pdo)) {*/
-        $this->pdo = new PDO($_ENV['DSN'], $_ENV['USER'], $_ENV['PASSWORD']);
-        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        //}
+        if (is_null($this->pdo)) {
+            $this->pdo = new PDO($_ENV['DSN'], $_ENV['USER'], $_ENV['PASSWORD']);
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        }
         return $this->pdo;
     }
-
 }
