@@ -33,8 +33,7 @@ class Product extends DomainObject
         ?float $price = null,
         ?float $quantity = null,
         ?string $description = null
-    )
-    {
+    ) {
         $this->id = $id;
         $this->productName = $productName;
         $this->category = $category;

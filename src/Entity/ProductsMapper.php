@@ -50,6 +50,7 @@ class ProductsMapper extends AbstractMapper
 
     /**
      * Extended AbstractMapper
+     *
      * @return PDOStatement
      */
     protected function selectAllStatement(): PDOStatement
@@ -60,7 +61,7 @@ class ProductsMapper extends AbstractMapper
     /**
      * Implementing InterfaceMapper
      *
-     * @param DomainObject $object
+     * @param  DomainObject $object
      * @return bool
      */
     public function save(DomainObject $object): bool
@@ -98,7 +99,7 @@ class ProductsMapper extends AbstractMapper
     /**
      * Implementing InterfaceMapper
      *
-     * @param DomainObject $object
+     * @param  DomainObject $object
      * @return bool
      */
     public function update(DomainObject $object): bool
@@ -131,7 +132,7 @@ class ProductsMapper extends AbstractMapper
     /**
      * Implementing InterfaceMapper
      *
-     * @param DomainObject $object
+     * @param  DomainObject $object
      * @return bool
      */
     public function delete(DomainObject $object): bool
@@ -156,7 +157,7 @@ class ProductsMapper extends AbstractMapper
     /**
      * Extended AbstractMapper
      *
-     * @param array $raw
+     * @param  array $raw
      * @return DomainObject
      */
     protected function createObject(array $raw): DomainObject
@@ -174,7 +175,7 @@ class ProductsMapper extends AbstractMapper
     /**
      * Extended AbstractMapper
      *
-     * @param array $raw
+     * @param  array $raw
      * @return array
      */
     protected function createArray(array $raw): array
@@ -190,7 +191,7 @@ class ProductsMapper extends AbstractMapper
      * Inner join of categories nad products
      * Method to receive category name by product
      *
-     * @param Product $product
+     * @param  Product $product
      * @return string|null
      */
     public function getCategoryByProductName(Product $product): string|null

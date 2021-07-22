@@ -25,7 +25,7 @@ interface InterfaceMapper
     /**
      * Methods uses to get object with selected id
      *
-     * @param int $id id of  record
+     * @param  int $id id of  record
      * @return DomainObject|null
      * return DomainObject iff table contains minimum 1 record that satisfy $id
      * return FALSE if no records in table
@@ -35,7 +35,7 @@ interface InterfaceMapper
     /**
      * Methods uses to create record in table
      *
-     * @param DomainObject $object object inserted into table
+     * @param  DomainObject $object object inserted into table
      * @return bool
      * return TRUE iff record was created
      * return FALSE if record was not created
@@ -45,7 +45,7 @@ interface InterfaceMapper
     /**
      * Methods uses to update record in table
      *
-     * @param DomainObject $object object updated in table
+     * @param  DomainObject $object object updated in table
      * @return bool
      * return TRUE iff record was updated
      * return FALSE if records was not updated
@@ -55,7 +55,7 @@ interface InterfaceMapper
     /**
      * Methods uses to delete record from table with selected id
      *
-     * @param DomainObject $object id of deleted record
+     * @param  DomainObject $object id of deleted record
      * @return bool
      * return TRUE iff record was deleted
      * return FALSE if records was not deleted

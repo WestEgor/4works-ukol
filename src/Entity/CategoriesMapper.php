@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Entity;
 
 use Model\Category;
@@ -57,7 +56,7 @@ class CategoriesMapper extends AbstractMapper
     /**
      * Implementing InterfaceMapper
      *
-     * @param DomainObject $object
+     * @param  DomainObject $object
      * @return bool
      */
     public function save(DomainObject $object): bool
@@ -88,7 +87,7 @@ class CategoriesMapper extends AbstractMapper
     /**
      * Implementing InterfaceMapper
      *
-     * @param DomainObject $object
+     * @param  DomainObject $object
      * @return bool
      */
     public function update(DomainObject $object): bool
@@ -119,7 +118,7 @@ class CategoriesMapper extends AbstractMapper
     /**
      * Implementing InterfaceMapper
      *
-     * @param DomainObject $object
+     * @param  DomainObject $object
      * @return bool
      */
     public function delete(DomainObject $object): bool
@@ -143,7 +142,7 @@ class CategoriesMapper extends AbstractMapper
     /**
      * Extended AbstractMapper
      *
-     * @param array $raw
+     * @param  array $raw
      * @return DomainObject
      */
     protected function createObject(array $raw): DomainObject
@@ -157,7 +156,7 @@ class CategoriesMapper extends AbstractMapper
     /**
      * Extended AbstractMapper
      *
-     * @param array $raw
+     * @param  array $raw
      * @return array
      */
     protected function createArray(array $raw): array

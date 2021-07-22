@@ -49,7 +49,7 @@ abstract class AbstractMapper implements InterfaceMapper
     /**
      * Method to create DomainObject from array
      *
-     * @param array $raw
+     * @param  array $raw
      * @return DomainObject
      */
     abstract protected function createObject(array $raw): DomainObject;
@@ -57,14 +57,15 @@ abstract class AbstractMapper implements InterfaceMapper
     /**
      * Method to create array of DomainObject from $raw
      *
-     * @param array $raw
+     * @param  array $raw
      * @return array
      */
     abstract protected function createArray(array $raw): array;
 
     /**
      * Implementing InterfaceMapper
-     * @param int $id
+     *
+     * @param  int $id
      * @return DomainObject|null
      */
     public function findByKey(int $id): ?DomainObject
@@ -81,6 +82,7 @@ abstract class AbstractMapper implements InterfaceMapper
 
     /**
      * Implementing InterfaceMapper
+     *
      * @return array|null
      */
     public function findAll(): ?array
