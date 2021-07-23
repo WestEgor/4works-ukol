@@ -80,13 +80,15 @@ if (isset($_POST['create_submit']) || isset($_POST['update_submit'])) {
             quantity: $quantity, description: $description
         );
 
+
         if (isset($_REQUEST['id'])) {
             $productOld = $productMapper->findByKey((int)$_REQUEST['id']);
             $product->setImage($productOld->getImage());
             $product->setId((int)$_REQUEST['id']);
         }
 
-        if (!is_null($image) && !is_null($tmp)) {
+
+        if (!empty($image) && !empty($tmp)) {
             $imageUploader = new ImageUploader();
             $imageUploader->upload($image, $tmp);
             $product->setImage($image);
@@ -95,7 +97,6 @@ if (isset($_POST['create_submit']) || isset($_POST['update_submit'])) {
         if (isset($_POST['update_submit'])) {
             $productMapper->update($product);
         }
-
 
         if (isset($_POST['create_submit'])) {
             $productMapper->save($product);

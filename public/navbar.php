@@ -22,14 +22,7 @@
                 <a class="nav-link" href="/public/categories/showCategories.php">Categories</a>
             </li>
         </ul>
-
     </div>
-    <form method="get" action="index.php">
-        <label>
-            Search by ID:
-            <input type="text" name="product_id"/>
-            <button class="btn btn-primary" type="submit" name="submit">Submit</button>
-        </label>
-    </form>
+    <a class="btn btn-primary" id="add_product" href="./products/productForm.php">Add new product</a>
 </nav>
 <?php require __DIR__ . '/bootstrap.html'; ?>

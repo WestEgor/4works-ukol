@@ -16,4 +16,5 @@ $product = $productMapper->findByKey((int)$_REQUEST['id']);
 if (!is_null($product)) {
     $product = $productMapper->delete($product);
 }
-header('Location: ../index.php');
+
+header("Refresh:0; url=../index.php");
