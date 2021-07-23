@@ -3,7 +3,7 @@ $(document).ready(
         $("a#submit_delete").click(
             function () {
                 const deletedId = $(this).attr('data-id');
-                if (confirm('Are you sure, that you want to delete this product?')) {
+                if (confirm('Jste si jisti, že chcete tento produkt smazat?')) {
                     $.ajax(
                         {
                             url: '/public/products/productDelete.php?id=' + deletedId,
