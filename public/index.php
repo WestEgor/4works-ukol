@@ -21,7 +21,7 @@ $categoriesMapper = new CategoriesMapper();
 $products = $productsMapper->findAll();
 ?>
 
-<html lang="en">
+<html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
@@ -67,30 +67,32 @@ $products = $productsMapper->findAll();
     <? else: $_SESSION['error'] = 'ID cannot be a string' ?>
     <?php endif ?>
 <?php else: ?>
-    <div class="card">
-        <div class="row">
-            <?php foreach ($products as $product): ?>
-                <?php if ($product instanceof Product) : ?>
-                    <div class="col-md-2">
-                        <img src="./download/images/<?php echo $product->getImage() ?>" class="img-fluid"
-                             style="height: 225px; width: 225px" alt="product-image"/>
-                    </div>
-                    <div class="col-md-4">
-                        <p class="h3"><?php echo $product->getProductName() ?></p>
-                        <p class="h4">
-                            Kategorie: <?php echo $productsMapper->getCategoryByProductName($product) ?></p>
-                        <p class="h6">Cena: <?php echo $product->getPrice() ?></p>
-                        <a id="product_detail" class="btn btn-primary"
-                           href="<?php $_SERVER['PHP_SELF'] ?>?id=<?php echo $product->getId(); ?>">Detail</a>
-                        <a id="submit_update" class="btn btn-warning"
-                           href="./products/productForm.php?id=<?php echo $product->getId(); ?>">Update</a>
-                        <a id="submit_delete" class="btn btn-danger" data-id="<?php echo $product->getId(); ?>"
-                           href="">Delete</a>
-                    </div>
-                <?php endif ?>
-            <?php endforeach; ?>
+    <?php if (!is_null($products)): ?>
+        <div class="card">
+            <div class="row">
+                <?php foreach ($products as $product): ?>
+                    <?php if ($product instanceof Product) : ?>
+                        <div class="col-md-2">
+                            <img src="./download/images/<?php echo $product->getImage() ?>" class="img-fluid"
+                                 style="height: 225px; width: 225px" alt="product-image"/>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="h3"><?php echo $product->getProductName() ?></p>
+                            <p class="h4">
+                                Kategorie: <?php echo $productsMapper->getCategoryByProductName($product) ?></p>
+                            <p class="h6">Cena: <?php echo $product->getPrice() ?></p>
+                            <a id="product_detail" class="btn btn-primary"
+                               href="<?php $_SERVER['PHP_SELF'] ?>?id=<?php echo $product->getId(); ?>">Detail</a>
+                            <a id="submit_update" class="btn btn-warning"
+                               href="./products/productForm.php?id=<?php echo $product->getId(); ?>">Update</a>
+                            <a id="submit_delete" class="btn btn-danger" data-id="<?php echo $product->getId(); ?>"
+                               href="">Delete</a>
+                        </div>
+                    <?php endif ?>
+                <?php endforeach; ?>
+            </div>
         </div>
-    </div>
+    <?php endif; ?>
 <?php endif; ?>
 
 <?php if (isset($_SESSION['error'])) : ?>

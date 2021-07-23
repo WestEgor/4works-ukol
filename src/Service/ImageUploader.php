@@ -2,11 +2,27 @@
 
 namespace Service;
 
+/**
+ * Class ImageUploader
+ * Class to upload image
+ *
+ * @package Service
+ */
 class ImageUploader
 {
 
+    /**
+     * Path to uploaded images
+     */
     private const PATH_TO_DIRECTORY = __DIR__ . '/../../public/download/images/';
 
+    /**
+     * Upload image
+     *
+     * @param $image
+     * @param $tmp
+     * @return string|false
+     */
     public function upload($image, $tmp): string|false
     {
         $localImage = self::PATH_TO_DIRECTORY;

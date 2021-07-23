@@ -23,6 +23,6 @@
             </li>
         </ul>
     </div>
-    <a class="btn btn-primary" id="add_product" href="./products/productForm.php">Add new product</a>
+    <a class="btn btn-primary" id="add_product" href="/public/products/productForm.php">Add new product</a>
 </nav>
 <?php require __DIR__ . '/bootstrap.html'; ?>

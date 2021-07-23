@@ -33,7 +33,7 @@ if (isset($_REQUEST['id'])) {
     }
 }
 ?>
-<html lang="en">
+<html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">

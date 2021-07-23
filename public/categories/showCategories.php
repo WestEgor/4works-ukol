@@ -15,13 +15,13 @@ $categoriesMapper = new CategoriesMapper();
 $categories = $categoriesMapper->findAll();
 $columns = $categoriesMapper->getColumnNames();
 ?>
-<html lang="en">
+<html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css"
           crossorigin="anonymous">
-    <title>Products</title>
+    <title>Categories</title>
 </head>
 <body>
 <?php require_once __DIR__ . '/../navbar.php'; ?>
