@@ -13,8 +13,8 @@ use Entity\ProductsMapper;
 use Model\Product;
 use Service\Validator;
 
-require __DIR__ . '/../vendor/autoload.php';
-(new DotEnv(__DIR__ . '/../.env'))->load();
+require __DIR__ . '/vendor/autoload.php';
+(new DotEnv(__DIR__ . '/.env'))->load();
 
 $productsMapper = new ProductsMapper();
 $categoriesMapper = new CategoriesMapper();
@@ -29,7 +29,7 @@ $products = $productsMapper->findAll();
     <title>Products</title>
 </head>
 <body>
-<?php require_once __DIR__ . '/navbar.php'; ?>
+<?php require_once __DIR__ . '/public/navbar.php'; ?>
 
 <?php if (isset($_POST['show_all'])) {
     unset($_GET['submit']);
@@ -44,7 +44,7 @@ $products = $productsMapper->findAll();
             <div class="row">
             <?php if ($product instanceof Product) : ?>
                 <div class="col-md-2">
-                    <img src="./download/images/<?php echo $product->getImage() ?>"
+                    <img src="/public/download/images/<?php echo $product->getImage() ?>"
                          class="img-fluid" alt="prod-img" style="height: 225px; width: 225px"/>
                 </div>
                 <div class="col-md-4">
@@ -55,7 +55,7 @@ $products = $productsMapper->findAll();
                     <p class="h6">Skladem: <?php echo $product->getQuantity() ?></p>
                     <p class="h6">Popis: <?php echo $product->getDescription() ?></p>
                     <a id="submit_update" class="btn btn-primary"
-                       href="./products/productForm.php?id=<?php echo $product->getId(); ?>">Edit</a>
+                       href="public/products/productForm.php?id=<?php echo $product->getId(); ?>">Edit</a>
                     <a id="submit_delete" class="btn btn-danger" data-id="<?php echo $product->getId(); ?>"
                        href="">Smazat</a>
                 </div>
@@ -73,7 +73,7 @@ $products = $productsMapper->findAll();
                 <?php foreach ($products as $product): ?>
                     <?php if ($product instanceof Product) : ?>
                         <div class="col-md-2">
-                            <img src="./download/images/<?php echo $product->getImage() ?>" class="img-fluid"
+                            <img src="/public/download/images/<?php echo $product->getImage() ?>" class="img-fluid"
                                  style="height: 225px; width: 225px" alt="product-image"/>
                         </div>
                         <div class="col-md-4">
@@ -84,7 +84,7 @@ $products = $productsMapper->findAll();
                             <a id="product_detail" class="btn btn-primary"
                                href="<?php $_SERVER['PHP_SELF'] ?>?id=<?php echo $product->getId(); ?>">Detail</a>
                             <a id="submit_update" class="btn btn-warning"
-                               href="./products/productForm.php?id=<?php echo $product->getId(); ?>">Edit</a>
+                               href="public/products/productForm.php?id=<?php echo $product->getId(); ?>">Edit</a>
                             <a id="submit_delete" class="btn btn-danger" data-id="<?php echo $product->getId(); ?>"
                                href="">Smazat</a>
                         </div>
@@ -110,6 +110,6 @@ $products = $productsMapper->findAll();
     </form>
 <?php endif; ?>
 <?php unset($_SESSION['error']); ?>
-<script src="js/deleteProduct.js"></script>
+<script src="public/js/deleteProduct.js"></script>
 </body>
 </html>

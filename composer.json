@@ -5,7 +5,7 @@
   "license": "MIT",
   "minimum-stability": "stable",
   "require": {
-    "php": ">=8.0",
+    "php": ">=7.4.0",
     "ext-pdo": "*"
   },
   "autoload": {
@@ -15,9 +15,5 @@
       "Configure\\": "config/",
       "Service\\": "src/Service"
     }
-  },
-  "require-dev": {
-    "phpstan/phpstan": "^0.12.91",
-    "squizlabs/php_codesniffer": "3.*"
   }
 }

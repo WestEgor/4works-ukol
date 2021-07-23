@@ -7,10 +7,10 @@ $(document).ready(
                     $.ajax(
                         {
                             url: '/public/products/productDelete.php?id=' + deletedId,
-                            type: 'delete',
+                            type: 'get',
                             success: function () {
                                 alert('Deleted successfully')
-                                window.location.href = '/public/index.php';
+                                window.location.href = '../../index.php';
                             }
                         }
                     );

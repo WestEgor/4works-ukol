@@ -174,7 +174,7 @@ class ProductsMapper extends AbstractMapper
             (int)$raw['id'],
             $raw['name'],
             $raw['image'],
-            new Category(id: $raw['category_id']),
+            new Category($raw['category_id']),
             (float)$raw['price'],
             (int)$raw['quantity'],
             $raw['description']
@@ -203,7 +203,7 @@ class ProductsMapper extends AbstractMapper
      * @param Product $product
      * @return string|null
      */
-    public function getCategoryByProductName(Product $product): string|null
+    public function getCategoryByProductName(Product $product): ?string
     {
         $nameOfProduct = $product->getProductName();
         $nameOfCategory = '';
@@ -222,28 +222,4 @@ class ProductsMapper extends AbstractMapper
         }
         return null;
     }
-
-    /**
-     * Get column names from table `products`
-     *
-     * @return array|null
-     * return ARRAY if columns exist
-     * return NULL if no columns in table
-     */
-    /*public function getProductColumnNames(): array|null
-    {
-        $sql = "SELECT `COLUMN_NAME` FROM `information_schema`.`COLUMNS` 
-                WHERE `TABLE_SCHEMA`= 'products-4works' 
-                AND `TABLE_NAME`='products'";
-
-        $stmt = $this->pdo->query($sql);
-        $tableList = [];
-        while ($row = $stmt->fetch(PDO::FETCH_NAMED)) {
-            $tableList[] = $row['COLUMN_NAME'];
-        }
-        if (count($tableList) === 0) {
-            return null;
-        }
-        return $tableList;
-    }*/
 }

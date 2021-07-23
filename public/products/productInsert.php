@@ -75,11 +75,12 @@ if (isset($_POST['create_submit']) || isset($_POST['update_submit'])) {
         }
 
 
-        $product = new Product(
-            productName: $name, category: $category, price: $price,
-            quantity: $quantity, description: $description
-        );
-
+        $product = new Product();
+        $product->setProductName($name);
+        $product->setCategory($category);
+        $product->setPrice($price);
+        $product->setQuantity($quantity);
+        $product->setDescription($description);
 
         if (isset($_REQUEST['id'])) {
             $productOld = $productMapper->findByKey((int)$_REQUEST['id']);
@@ -105,6 +106,6 @@ if (isset($_POST['create_submit']) || isset($_POST['update_submit'])) {
             unset($_SESSION[$key]);
         }
         session_destroy();
-        header('Location: ../index.php');
+        header('Location: /../index.php');
     }
 }

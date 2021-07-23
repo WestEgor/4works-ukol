@@ -47,7 +47,7 @@ class DotEnv
         if ($lines) {
             foreach ($lines as $line) {
                 //skip comments in .env file
-                if (str_starts_with(trim($line), '#')) {
+                if ($this->str_starts_with(trim($line), '#')) {
                     continue;
                 }
                 //put away `=`
@@ -64,4 +64,16 @@ class DotEnv
             }
         }
     }
+
+    /**
+     * str_starts_with php <8.0
+     * @param $haystack
+     * @param $needle
+     * @return bool
+     */
+    function str_starts_with($haystack, $needle): bool
+    {
+        return strpos($haystack, $needle) === 0;
+    }
+
 }

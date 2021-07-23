@@ -182,7 +182,7 @@ class CategoriesMapper extends AbstractMapper
      * return ARRAY if columns exist
      * return NULL if no columns in table
      */
-    public function getColumnNames(): array|null
+    public function getColumnNames(): ?array
     {
         $sql = "SELECT `COLUMN_NAME` FROM `information_schema`.`COLUMNS` 
                 WHERE `TABLE_SCHEMA`= 'products-4works' 

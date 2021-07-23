@@ -33,7 +33,7 @@ class Connection
      *
      * @return static
      */
-    public static function getInstance(): static
+    public static function getInstance()
     {
         if (is_null(static::$instance)) {
             static::$instance = new static();
