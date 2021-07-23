@@ -47,7 +47,7 @@ if (isset($_REQUEST['id'])) {
 <form id="product_form" method="post" enctype="multipart/form-data">
     <div class="row g-3 align-items-center">
         <div class="col-auto">
-            <label for="pname" class="form-label">Name of product:</label>
+            <label for="pname" class="form-label">Jméno produktu:</label>
             <input type="text" id="pname" name="product_name" class="form-control"
                    value="<?php if (is_null($product)) {
                        echo(!empty($_SESSION['product_name']) ? $_SESSION['product_name'] : '');
@@ -56,7 +56,7 @@ if (isset($_REQUEST['id'])) {
                    } ?> ">
         </div>
         <div class="col-auto">
-            <label>Categories:
+            <label>Kategorie:
                 <select name="product_category" class="form-select" aria-label="Default select example">
                     <?php if (!is_null($categories)): ?>
                         <?php foreach ($categories as $category): ?>
@@ -68,7 +68,7 @@ if (isset($_REQUEST['id'])) {
             </label>
         </div>
         <div class="col-auto">
-            <label for="pprice" class="form-label">Price:</label>
+            <label for="pprice" class="form-label">Cena:</label>
             <input type="text" id="pprice" name="product_price" class="form-control"
                    value="<?php if (is_null($product)) {
                        echo(!empty($_SESSION['product_price']) ? $_SESSION['product_price'] : '');
@@ -77,7 +77,7 @@ if (isset($_REQUEST['id'])) {
                    } ?>">
         </div>
         <div class="col-auto">
-            <label for="pquantity" class="form-label">Quantity:</label>
+            <label for="pquantity" class="form-label">Skladem:</label>
             <input type="text" id="pquantity" name="product_quantity" class="form-control"
                    value="<?php if (is_null($product)) {
                        echo(!empty($_SESSION['product_quantity']) ? $_SESSION['product_quantity'] : '');
@@ -86,7 +86,7 @@ if (isset($_REQUEST['id'])) {
                    } ?>">
         </div>
         <div class="col-auto">
-            <label>Description
+            <label>Popis
                 <textarea class="form-control" name="product_description" id="description" cols="50" rows="3">
                     <?php if (is_null($product)) {
                         echo(!empty($_SESSION['product_description']) ? $_SESSION['product_description'] : '');
@@ -96,7 +96,7 @@ if (isset($_REQUEST['id'])) {
                     </textarea></label>
         </div>
         <div class="col-auto">
-            <label>Product image:</label>
+            <label>Obraz produktu:</label>
             <input type="file"
                    name="product_image"
                    value=""/>

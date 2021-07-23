@@ -55,16 +55,16 @@ $products = $productsMapper->findAll();
                     <p class="h6">Skladem: <?php echo $product->getQuantity() ?></p>
                     <p class="h6">Popis: <?php echo $product->getDescription() ?></p>
                     <a id="submit_update" class="btn btn-primary"
-                       href="./products/productForm.php?id=<?php echo $product->getId(); ?>">Update</a>
+                       href="./products/productForm.php?id=<?php echo $product->getId(); ?>">Edit</a>
                     <a id="submit_delete" class="btn btn-danger" data-id="<?php echo $product->getId(); ?>"
-                       href="">Delete</a>
+                       href="">Smazat</a>
                 </div>
                 </div>
                 </div>
             <?php endif; ?>
-        <? else: $_SESSION['error'] = 'Cannot find product with current ID' ?>
+        <? else: $_SESSION['error'] = 'Nelze najít produkt s aktuálním ID' ?>
         <?php endif ?>
-    <? else: $_SESSION['error'] = 'ID cannot be a string' ?>
+    <? else: $_SESSION['error'] = 'ID nemůže být řetězcem' ?>
     <?php endif ?>
 <?php else: ?>
     <?php if (!is_null($products)): ?>
@@ -84,9 +84,9 @@ $products = $productsMapper->findAll();
                             <a id="product_detail" class="btn btn-primary"
                                href="<?php $_SERVER['PHP_SELF'] ?>?id=<?php echo $product->getId(); ?>">Detail</a>
                             <a id="submit_update" class="btn btn-warning"
-                               href="./products/productForm.php?id=<?php echo $product->getId(); ?>">Update</a>
+                               href="./products/productForm.php?id=<?php echo $product->getId(); ?>">Edit</a>
                             <a id="submit_delete" class="btn btn-danger" data-id="<?php echo $product->getId(); ?>"
-                               href="">Delete</a>
+                               href="">Smazat</a>
                         </div>
                     <?php endif ?>
                 <?php endforeach; ?>

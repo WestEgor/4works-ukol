@@ -25,7 +25,7 @@ if (isset($_POST['create_submit']) || isset($_POST['update_submit'])) {
     $_SESSION['product_name'] = $_POST['product_name'];
     $name = $_SESSION['product_name'];
     if (!Validator::validateString($name)) {
-        $errorMessage .= 'Product name cannot be empty' . '</br>';
+        $errorMessage .= 'Produkt nemůže být prázdným' . '</br>';
         unset($_SESSION['product_name']);
         unset($_POST['product_name']);
     }
@@ -35,21 +35,21 @@ if (isset($_POST['create_submit']) || isset($_POST['update_submit'])) {
     $_SESSION['product_price'] = $_POST['product_price'];
     $price = $_SESSION['product_price'];
     if (!Validator::validateFloat($price)) {
-        $errorMessage .= 'Price cannot be empty/string' . '</br>';
+        $errorMessage .= 'Cena nemůže být prázdným/řetězcem' . '</br>';
         unset($_SESSION['product_price']);
         unset($_POST['product_price']);
     }
     $_SESSION['product_quantity'] = $_POST['product_quantity'];
     $quantity = $_SESSION['product_quantity'];
     if (!Validator::validateInt($quantity)) {
-        $errorMessage .= 'Quantity cannot be empty/string/float' . '</br>';
+        $errorMessage .= 'Počet skladem nemůže být prázdným/řetězcem/float' . '</br>';
         unset($_SESSION['product_quantity']);
         unset($_POST['product_quantity']);
     }
     $_SESSION['product_description'] = $_POST['product_description'];
     $description = $_SESSION['product_description'];
     if (!Validator::validateString($description)) {
-        $errorMessage .= 'Description cannot be empty' . '</br>';
+        $errorMessage .= 'Popis skladem nemůže být prázdným' . '</br>';
         unset($_SESSION['product_description']);
         unset($_POST['product_description']);
     }
