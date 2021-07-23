@@ -106,7 +106,7 @@ $products = $productsMapper->findAll();
 
 <?php if (isset($_REQUEST['id']) || isset($_SESSION['error'])) : ?>
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-        <button class="btn btn-primary" type="submit" name="show_all">Show all</button>
+        <button class="btn btn-primary" type="submit" name="show_all">Zobrazit všechna zboží</button>
     </form>
 <?php endif; ?>
 <?php unset($_SESSION['error']); ?>
