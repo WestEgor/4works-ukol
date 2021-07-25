@@ -57,6 +57,12 @@ if (isset($_POST['create_submit']) || isset($_POST['update_submit'])) {
     $image = $_FILES['product_image']['name'];
     $tmp = $_FILES['product_image']['tmp_name'];
 
+
+    if (!ImageUploader::isExtensionAllowed($image)) {
+        $errorMessage .= 'Nepovolená přípona souboru' . '</br>';
+    }
+
+
     $_SESSION['error_msg'] = $errorMessage;
 
     if ($_SESSION['error_msg'] !== '') {
